@@ -177,6 +177,12 @@ fileInput.addEventListener("change", (event) => {
 });
 
 function readExcel(file) {
+  if (typeof XLSX === "undefined") {
+    hideLoading();
+    alert("Library pembaca Excel belum siap. Muat ulang halaman lalu coba lagi.");
+    return;
+  }
+
   state.originalFile = file;
   state.deviasiLoaded = false;
   state.deviasiSheet = null;
