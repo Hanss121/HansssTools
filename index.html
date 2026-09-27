@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Dashboard Produksi HD</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- SheetJS untuk membaca Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container header-content">
+        <div class="header-info">
+          <span class="eyebrow"> PRODUCTION REPORT DASHBOARD </span>
+
+          <h1>HASIL PRODUKSI HD POTONG</h1>
+
+          <p>Dashboard produksi, rekap hasil, dan deviasi</p>
+
+          <div id="status" class="status">Silakan upload DATA UTAMA.xlsx</div>
+        </div>
+
+        <div class="upload-wrapper">
+          <label for="fileInput" class="upload-button"> 📁 Upload Excel </label>
+
+          <input type="file" id="fileInput" accept=".xlsx" />
+        </div>
+      </div>
+    </header>
+
+    <main class="container main">
+      <section class="filter-card">
+        <div class="filter-group">
+          <label> Tanggal Laporan </label>
+
+          <select id="dateFilter" disabled>
+            <option>Upload file terlebih dahulu</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label> Pilih Tanggal </label>
+
+          <input type="date" id="dateInput" disabled />
+        </div>
+
+        <button id="latestBtn" class="button primary" disabled>Tanggal Terakhir</button>
+
+        <button id="resetBtn" class="button secondary" disabled>Reset</button>
+      </section>
+
+      <section class="summary-grid">
+        <div class="summary-card">
+          <div class="summary-label">TANGGAL AKTIF</div>
+
+          <div id="cDate" class="summary-value">-</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-label">JUMLAH BARIS</div>
+
+          <div id="cRows" class="summary-value">0</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-label">TOTAL HASIL</div>
+
+          <div id="cResult" class="summary-value">0</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-label">SHIFT</div>
+
+          <div id="cShift" class="summary-value">Semua</div>
+        </div>
+      </section>
+
+      <section class="table-card">
+        <div class="table-header">
+          <div>
+            <div class="report-tabs" role="tablist">
+              <button type="button" class="report-tab active" data-view="detail">Detail Laporan</button>
+
+              <button type="button" class="report-tab" data-view="recap">Rekap Hasil</button>
+
+              <button type="button" class="report-tab" data-view="deviasi">Deviasi</button>
+            </div>
+
+            <p id="tableInfo">Belum ada data</p>
+          </div>
+
+          <div class="table-actions">
+            <div class="shift-buttons">
+              <button type="button" class="shift-button active" data-shift="ALL">SEMUA</button>
+
+              <button type="button" class="shift-button" data-shift="A">A</button>
+
+              <button type="button" class="shift-button" data-shift="B">B</button>
+            </div>
+
+            <button id="recapShiftToggle" class="button secondary" type="button" hidden>Tampilkan Rekap Shift</button>
+
+            <button id="exportRecapBtn" class="button primary" type="button">Export Rekap</button>
+            <button id="exportDeviasiBtn" class="button secondary" type="button">Export Deviasi</button>
+            <span id="datePill" class="date-pill"> - </span>
+          </div>
+        </div>
+
+        <div id="tableArea" class="table-wrapper">
+          <div class="empty-state">
+            <div class="empty-icon">📊</div>
+
+            <h3>Belum ada data</h3>
+
+            <p>Upload file Excel untuk menampilkan laporan.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
